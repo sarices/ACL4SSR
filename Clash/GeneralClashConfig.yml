@@ -36,7 +36,34 @@ external-controller: '127.0.0.1:9090'
 
 tun:
   enable: true
+  stack: gvisor # system gvisor
   auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - 127.0.0.1:53
+
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: false
+  nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+  enhanced-mode: fake-ip # fake-ip redir-host
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.localdomain'
+    - '*.example'
+    - '*.invalid'
+    - '*.localhost'
+    - '*.test'
+    - '*.local'
+    - '*.home.arpa'
+    - router.asus.com
+    - localhost.sec.qq.com
+    - localhost.ptlogin2.qq.com
+    - '+.msftconnecttest.com'
 
 # 您可以将静态网页资源（如 clash-dashboard）放置在一个目录中，clash 将会服务于 `RESTful API/ui`
 # 参数应填写配置目录的相对路径或绝对路径。
